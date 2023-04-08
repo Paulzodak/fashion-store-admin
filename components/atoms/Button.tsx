@@ -11,7 +11,7 @@ export function Button(props: IButtonProps) {
   return (
     <button
       disabled={props.disable}
-      className=" focus:ring-[0.3rem] outline-none focus:ring-teal-100 focus:ring-offset-2 relative border h-full w-full bg-btnGreen text-[white] rounded-md px-4 text-sm sm:text-sm md:text-md overflow-hidden z-0 "
+      className=" focus:ring-[0.3rem] hover:ring-[0.3rem] outline-none ring-teal-200/30 ring-offset-0 relative border h-full w-full bg-btnGreen text-[white] rounded-md px-2 sm:px-4 text-sm sm:text-sm md:text-md overflow-hidden z-0 "
     >
       <div className="relative z-[5]">{props.text}</div>
       {props.disable && (

@@ -46,7 +46,13 @@ export default function Index(props: any) {
   console.log(filter);
   return (
     <Layout>
-      <section>Dashboard</section>
+      <section className="border mx-4 mt-4">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <div className="border w-full mt-8 grid grid-cols-[65%_auto] gap-x-8">
+          <div className="border h-20"></div>
+          <div className="border h-20"></div>
+        </div>
+      </section>
     </Layout>
   );
 }

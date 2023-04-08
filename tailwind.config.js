@@ -11,10 +11,12 @@ module.exports = {
         borderGrey: "#DEE1E6FF",
         textGrey: "#BCC1CAFF",
         btnGreen: " #459D7AFF",
+        lightBtnGreen: "#DDF0E8FF",
         bgGrey: "#F3F4F6FF",
       },
       fontFamily: {
         inter: ["'Inter', sans-serif"],
+        roboto: ["'Roboto', sans-serif"],
       },
       backgroundImage: {
         hero: "url('/assets/home/hero.jpg')",

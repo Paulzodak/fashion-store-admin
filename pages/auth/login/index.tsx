@@ -102,7 +102,7 @@ export default function Index(props: IIndexProps) {
             icon: "success",
             title: "Signed in successfully",
           });
-          router.push("/Dashboard");
+          router.push("/dashboard");
         })
         .catch((err) => {
           console.log(err);

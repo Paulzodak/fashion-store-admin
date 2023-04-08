@@ -44,12 +44,12 @@ export function SideNav(props: any) {
             },
           }}
           exit={{ rotate: -180 }}
-          className="fixed float-right m-5  "
+          className="fixed float-right m-4  "
         >
           <CloseBtn
             onClick={() => props.setShowSideNav(false)}
             // className="relative float-right m-5"
-            size="1.5rem"
+            size="1.2rem"
           />
         </motion.div>
       )}
@@ -70,12 +70,12 @@ export function SideNav(props: any) {
         // variants={container}
         initial="hidden"
         animate="show"
-        className=" mt-20 mx-4 "
+        className=" mt-20 ml-1 "
       >
         {props.navItems.map((item: any) => {
           return (
             <motion.div
-              className={` hover:border-l-4 hover:border-btnGreen cursor-pointer duration-150 ease-out mb-8 grid grid-cols-[4rem_8rem] px-2 ${
+              className={` hover:border-l-4 hover:border-btnGreen cursor-pointer duration-150 ease-out mb-8 grid grid-cols-[3rem_6rem] px-2 ${
                 item.route === router.pathname &&
                 "border-l-4 border-btnGreen text-btnGreen"
               }`}
@@ -87,7 +87,7 @@ export function SideNav(props: any) {
               }}
             >
               {item.icon}
-              <div className="">{item.name}</div>
+              <div className="text-md">{item.name}</div>
             </motion.div>
           );
         })}
@@ -96,9 +96,9 @@ export function SideNav(props: any) {
         onClick={() => {
           router.push("/settings");
         }}
-        className=" w-full absolute bottom-[7rem] py-2 grid grid-cols-[5rem_8rem_1rem] cursor-pointer "
+        className=" w-full absolute bottom-[7rem] py-2 grid grid-cols-[3.5rem_5rem] cursor-pointer "
       >
-        <div className="w-11 h-11 relative mx-4  rounded-full shadow-md border border-[white]">
+        <div className="w-10 h-10 relative ml-1  rounded-full shadow-md border border-[white]">
           <Image
             className="rounded-full"
             src={user.imageUrl ? user.imageUrl : userImage}
@@ -112,7 +112,7 @@ export function SideNav(props: any) {
           </h1>
           <h4 className="text-sm">View profile</h4>
         </div>
-        <SettingsIcon size="1.5rem" className="mx-auto mt-2" />
+        {/* <SettingsIcon size="1.5rem" className="mx-auto mt-2" /> */}
       </div>
       <hr className="border absolute bottom-[4rem] w-[90%] mx-[5%]" />
     </>

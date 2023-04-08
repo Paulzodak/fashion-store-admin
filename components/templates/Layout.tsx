@@ -16,50 +16,53 @@ export interface ILayoutProps {}
 export function Layout(props: any) {
   const router = useRouter();
   const { utilitySearch } = useSelector((state: any) => state.utilities);
-  const [width, setWidth] = useState("4.5rem");
+  const [width, setWidth] = useState("3rem");
   const [showSideNav, setShowSideNav] = useState(false);
-  const iconsize = "1.5rem";
+  const iconsize = "1.3rem";
+  const classNames = "";
   const navItems = [
     {
       name: "Dashboard",
-      icon: <DashboardIcon size={iconsize} />,
+      icon: <DashboardIcon size={iconsize} className={classNames} />,
       route: "/dashboard",
       query: "/dashboard",
     },
     {
       name: "Products",
-      icon: <ProductIcon size={iconsize} color="inherit" />,
+      icon: (
+        <ProductIcon size={iconsize} color="inherit" className={classNames} />
+      ),
       route: "/products",
       query: "/products",
     },
     {
       name: "Orders",
-      icon: <ProductIcon size={iconsize} />,
+      icon: <ProductIcon size={iconsize} className={classNames} />,
       route: "/orders",
       query: "/orders",
     },
     {
       name: "Clients",
-      icon: <UserIcon size={iconsize} />,
+      icon: <UserIcon size={iconsize} className={classNames} />,
       route: "/clients",
       query: "/clients",
     },
     {
       name: "Messages",
-      icon: <SettingsIcon size={iconsize} />,
+      icon: <SettingsIcon size={iconsize} className={classNames} />,
       route: "/messages",
       query: "/messages",
     },
   ];
 
   return (
-    <div className="grid grid-cols-[5rem_auto]">
+    <div className="grid grid-cols-[3rem_auto]">
       <AnimatePresence>
         {
           <motion.div
             // initial={{ width: "3rem" }}
-            onMouseEnter={() => setWidth("15rem")}
-            onMouseLeave={() => setWidth("4.5rem")}
+            onMouseEnter={() => setWidth("10rem")}
+            onMouseLeave={() => setWidth("3rem")}
             animate={{
               // x: 0,
               width: width,

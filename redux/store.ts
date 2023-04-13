@@ -9,7 +9,7 @@ import session from "redux-persist/lib/storage/session";
 import thunk from "redux-thunk";
 
 const persistConfig = {
-  key: "root2",
+  key: "root-fashion-admin-1234",
   storage,
 };
 const rootPersistConfig = {

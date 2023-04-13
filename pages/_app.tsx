@@ -3,7 +3,8 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import Head from "next/head";
-import Wrapper from "./wrapper";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "@/redux/store";
 export default function App({ Component, pageProps }: AppProps) {
   console.log(pageProps);
   return (
@@ -19,9 +20,12 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Provider store={store}>
-        {/* <Wrapper> */}
-        <Component {...pageProps} />
-        {/* </Wrapper> */}
+        <PersistGate loading={false} persistor={persistor}>
+          {/* <Wrapper> */}
+          <Component {...pageProps} />
+
+          {/* </Wrapper> */}
+        </PersistGate>
       </Provider>
     </>
   );

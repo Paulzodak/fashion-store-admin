@@ -5,10 +5,14 @@ import { useState } from "react";
 export interface ICreateProductProps {
   showCreateProduct: boolean;
   setShowCreateProduct: Function;
+  getProducts: Function;
 }
 import { InputField } from "../atoms/createProduct/InputField";
-
+import axios from "axios";
+import { Toast } from "@/utils/global";
+import { BASEURL } from "@/utils/global";
 export default function CreateProduct(props: ICreateProductProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [inputs, setInputs] = useState<any>({
     productName: "",
     productCategory: "",
@@ -42,21 +46,6 @@ export default function CreateProduct(props: ICreateProductProps) {
     "Credo Beauty",
     "Narscosmetics.com",
   ];
-  const BtnRender = () => {
-    return (
-      <div className=" grid grid-cols-2 gap-x-1 h-8 sm:gap-x-4">
-        <button
-          onClick={() => {
-            props.setShowCreateProduct(false);
-          }}
-          className=" focus:ring-[0.2rem] hover:ring-[0.2rem] outline-none ring-teal-200/30 ring-offset-0 relative  h-full w-full bg-lightBtnGreen text-btnGreen rounded-md  text-sm  md:text-md overflow-hidden z-0"
-        >
-          Cancel
-        </button>
-        <Button text="Create" loading={false} animate={false} disable={false} />
-      </div>
-    );
-  };
 
   // ------------VALIDATION------------
 
@@ -73,6 +62,82 @@ export default function CreateProduct(props: ICreateProductProps) {
       temp[name] = value;
       return temp;
     });
+  };
+  const formSubmitHandler = () => {
+    setLoading(true);
+    axios
+      .post(`${BASEURL}/product/createProduct`, {
+        productName: inputs.productName,
+        productCategory: inputs.productCategory,
+        productBrand: inputs.productBrand,
+        productPrice: inputs.productPrice,
+        productPurpose: inputs.productPurpose,
+        productDou: inputs.productDou,
+        productIngredients: inputs.productIngredients,
+      })
+      .then((res) => {
+        props.setShowCreateProduct(false);
+        props.getProducts();
+        // setInputs({
+        //   productName: "",
+        //   productCategory: "",
+        //   productBrand: "",
+        //   productPrice: "",
+        //   productPurpose: "",
+        //   productDou: "",
+        //   productIngredients: "",
+        // });
+        // setInputIsValid({
+        //   productName: false,
+        //   productCategory: false,
+        //   productBrand: false,
+        //   productPrice: false,
+        //   productPurpose: false,
+        //   productDou: false,
+        //   productIngredients: false,
+        // });
+        console.log(res);
+        // if (res.data.user) {
+        //   setToken(res.data.user);
+        // }
+        setLoading(false);
+        Toast.fire({
+          icon: "success",
+          title: "Product created!",
+        });
+        // router.push("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+        Toast.fire({
+          icon: "error",
+          title: "Error",
+        });
+        setLoading(false);
+      });
+  };
+
+  const BtnRender = () => {
+    return (
+      <div className=" grid grid-cols-2 gap-x-1 h-8 sm:gap-x-4">
+        <button
+          onClick={() => {
+            props.setShowCreateProduct(false);
+          }}
+          className=" focus:ring-[0.2rem] hover:ring-[0.2rem] outline-none ring-teal-200/30 ring-offset-0 relative  h-full w-full bg-lightBtnGreen text-btnGreen rounded-md  text-sm  md:text-md overflow-hidden z-0"
+        >
+          Cancel
+        </button>
+        <div onClick={formSubmitHandler}>
+          <Button
+            text="Create"
+            loading={loading}
+            animate={true}
+            disable={false}
+          />
+        </div>
+      </div>
+    );
   };
   return (
     <div className="font-roboto fixed inset-0 flex items-center justify-center  bg-gray-900 bg-opacity-80 z-10 ">

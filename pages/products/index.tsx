@@ -4,20 +4,39 @@ import { IoAdd as AddIcon } from "react-icons/io5";
 import { AiOutlineSearch as SearchIcon } from "react-icons/ai";
 import { useState } from "react";
 import CreateProduct from "@/components/molecules/CreateProduct";
+import { useEffect } from "react";
+import axios from "axios";
+import { BASEURL } from "@/utils/global";
 export interface IIndexProps {}
 
 export default function Index(props: any) {
+  const [products, setProducts] = useState<[{}]>([{}]);
+  console.log(products);
+  const getProducts = () => {
+    axios
+      .get(`${BASEURL}/product/fetchAllProducts`)
+      .then((res) => {
+        console.log(res);
+        setProducts(res.data.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getProducts();
+  }, []);
   const dummyCategories = [
     {
       name: "All",
       active: true,
     },
     {
-      name: "Face",
+      name: "Skin care",
       active: false,
     },
     {
-      name: "Body",
+      name: "Fragrances",
       active: false,
     },
   ];
@@ -35,15 +54,17 @@ export default function Index(props: any) {
       return temp;
     });
   };
-  console.log(filter);
-  const tableRowClasses = "grid grid-cols-[10%_25%_25%_10%_10%_10%]";
-  const tbClasses = "text-md  text-left ";
-  const thClasses = "text-md font-medium text-gray-900 text-left";
+  useEffect(() => {}, []);
+  console.log(filterHeader);
+  const tableRowClasses = "grid grid-cols-[10%_25%_25%_10%_10%_10%] gap-y-4";
+  const tbClasses = "text-md  text-left  ";
+  const thClasses = "text-md font-medium text-gray-900 text-left ";
   return (
     <Layout>
       <section className="px-4 pt-4">
         {showCreateProduct && (
           <CreateProduct
+            getProducts={getProducts}
             showCreateProduct={showCreateProduct}
             setShowCreateProduct={setShowCreateProduct}
           />
@@ -92,8 +113,8 @@ export default function Index(props: any) {
           </div>
         </div>
         {/* --------------TABLE------------- */}
-        <div className="border mt-8 rounded-md ">
-          <table className="grid">
+        <div className="border mt-8  rounded-md ">
+          <table className="border grid pb-4">
             <thead className="h-14 pt-4  bg-bgGrey text-borderGrey">
               <tr className={`${tableRowClasses}`}>
                 <th scope="col" className={thClasses}></th>
@@ -115,24 +136,36 @@ export default function Index(props: any) {
                 <th scope="col" className={thClasses}></th>
               </tr>
             </thead>
-            <tbody className="h-14 pt-4">
+            <tbody className=" pt-4">
               <tr className={`${tableRowClasses}`}>
-                <td scope="col" className={tbClasses}></td>
-                <td scope="col" className={tbClasses}>
-                  Natural Beard Oil
-                </td>
-                <td scope="col" className={tbClasses}>
-                  Nature and body essential
-                </td>
-                <td scope="col" className={tbClasses}>
-                  50pcs
-                </td>
-                <td scope="col" className={tbClasses}>
-                  $60
-                </td>
-                <td scope="col" className={tbClasses}>
-                  Available
-                </td>
+                {products
+                  .filter((item: any) =>
+                    filterHeader[0].name == "All"
+                      ? item
+                      : item.productCategory == filterHeader[0].name && item
+                  )
+                  .map((item: any) => {
+                    return (
+                      <>
+                        <td scope="col" className={tbClasses}></td>
+                        <td scope="col" className={tbClasses}>
+                          {item.productName}
+                        </td>
+                        <td scope="col" className={tbClasses}>
+                          {item.productCategory}
+                        </td>
+                        <td scope="col" className={tbClasses}>
+                          50pcs
+                        </td>
+                        <td scope="col" className={tbClasses}>
+                          ${item.productPrice}
+                        </td>
+                        <td scope="col" className={tbClasses}>
+                          Available
+                        </td>{" "}
+                      </>
+                    );
+                  })}
               </tr>
             </tbody>
           </table>

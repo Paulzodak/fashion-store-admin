@@ -88,7 +88,7 @@ export default function Index(props: IIndexProps) {
   const login = () => {
     if (inputIsValid.email && inputIsValid.password) {
       axios
-        .post(`${BASEURL}/user/fetchUser`, {
+        .post(`${BASEURL}/auth/admin/login`, {
           email: inputs.email,
           password: inputs.password,
         })

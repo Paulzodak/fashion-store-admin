@@ -13,5 +13,5 @@ export const Toast = Swal.mixin({
     toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
 });
-export const BASEURL = "http://localhost:5000/api";
-// export const BASEURL = "https://fashion-store-server-wgix.vercel.app/api";
+// export const BASEURL = "http://localhost:5000/api";
+export const BASEURL = "https://fashion-store-server-wgix.vercel.app/api";
